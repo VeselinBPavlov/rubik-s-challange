@@ -6,7 +6,7 @@ namespace RubiksCube.Domain.ValueObjects;
 /// Represents a single move on a Rubik's Cube (immutable value object).
 /// Supports standard Rubik's Cube notation (F, R', U, etc.).
 /// </summary>
-public sealed class Move : IEquatable<Move>
+public sealed class Move : ValueObject
 {
     private static readonly Dictionary<string, (FaceType Face, RotationDirection Dir)> NotationMap = new()
     {
@@ -107,22 +107,10 @@ public sealed class Move : IEquatable<Move>
     /// </summary>
     public static Move AntiClockwise(FaceType face) => new(face, RotationDirection.AntiClockwise);
 
-    #region Equality (value-object semantics)
-
-    public bool Equals(Move? other)
+    protected override IEnumerable<object> GetAtomicValues()
     {
-        if (other is null) return false;
-        return Face == other.Face && Direction == other.Direction;
+        yield return Face;
+        yield return Direction;
     }
-
-    public override bool Equals(object? obj) => Equals(obj as Move);
-
-    public override int GetHashCode() => HashCode.Combine(Face, Direction);
-
-    public static bool operator ==(Move? left, Move? right) => Equals(left, right);
-
-    public static bool operator !=(Move? left, Move? right) => !Equals(left, right);
-
-    #endregion
 }
 

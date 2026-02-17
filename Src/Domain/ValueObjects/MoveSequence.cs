@@ -6,7 +6,7 @@ using System.Collections.ObjectModel;
 /// <summary>
 /// Represents an immutable sequence of moves.
 /// </summary>
-public sealed class MoveSequence : IEnumerable<Move>
+public sealed class MoveSequence : ValueObject, IEnumerable<Move>
 {
     private readonly ReadOnlyCollection<Move> _moves;
 
@@ -58,4 +58,10 @@ public sealed class MoveSequence : IEnumerable<Move>
     public IEnumerator<Move> GetEnumerator() => _moves.GetEnumerator();
 
     IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+
+    protected override IEnumerable<object> GetAtomicValues()
+    {
+        foreach (var move in _moves)
+            yield return move;
+    }
 }
