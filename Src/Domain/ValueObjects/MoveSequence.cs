@@ -1,5 +1,3 @@
-using RubiksCube.Domain.Exceptions;
-
 namespace RubiksCube.Domain.ValueObjects;
 
 using System.Collections;
