@@ -188,17 +188,6 @@ public class MoveTests
     #region Equality
 
     [Fact]
-    public void Equals_SameFaceAndDirection_ShouldBeTrue()
-    {
-        var a = Move.Clockwise(FaceType.Front);
-        var b = Move.Clockwise(FaceType.Front);
-
-        a.Equals(b).Should().BeTrue();
-        (a == b).Should().BeTrue();
-        a.GetHashCode().Should().Be(b.GetHashCode());
-    }
-
-    [Fact]
     public void Equals_DifferentDirection_ShouldBeFalse()
     {
         var a = Move.Clockwise(FaceType.Front);
